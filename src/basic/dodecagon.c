@@ -104,7 +104,9 @@ int main(int argc, char **argv){
   /* glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2); */
   /* glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); */
 
-  glfwOpenWindow(0,0,0,0,0,0,0,0,GLFW_WINDOW);
+  glfwOpenWindow(500,500,0,0,0,0,0,0,GLFW_WINDOW);
+
+  glfwSetWindowPos(50,100);
 
   glfwSetWindowTitle("dodecagon");
 

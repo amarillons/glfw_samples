@@ -22,12 +22,12 @@ all: new
 prog1:
 	$(CC) $(OPT) $(PREDEF) -c nothing.c
 	$(CC) $(OBJS1) $(LIB) -o nothing
-	$(CC) $(OPT) $(PREDEF) -c dodecagon.c
-	$(CC) $(OBJS2) $(LIB) -o dodecagon
 prog2:
 	$(CC) $(OPT) $(PREDEF) -c rectangle.c
 	$(CC) $(OBJS3) $(LIB) -o rectangle
 new:
+	$(CC) $(OPT) $(PREDEF) -c dodecagon.c
+	$(CC) $(OBJS2) $(LIB) -o dodecagon
 	$(CC) $(OPT) $(PREDEF) -c playground.c
 	$(CC) $(OBJS4) $(LIB) -o playground
 	$(CC) $(OPT) $(PREDEF) -c triangle.c
