@@ -16,12 +16,12 @@ static const GLchar *vertex_shader_source=
     "attribute vec4 position;attribute vec3 normal;attribute vec4 color;varying vec4 vColor;\n"
     "uniform float uniID;varying vec3 varyingnormal;\n"
     "void main()\n"
-    "{vColor = position;   gl_Position = position;}\n"
+    "{vColor = position;   gl_Position = position; varyingnormal = vec3(position.x,position.y,0.);}\n"
   };
 
 static const GLchar *fragment_shader_source=
   {
-    "uniform float uniID;varying vec4 vColor;\n"
+    "uniform float uniID;varying vec4 vColor;\nvarying vec3 varyingnormal;\n"
     "void main()\n"
     "{ float r2 = (vColor.x+1.)*(vColor.x+1.)+(vColor.y+1.)*(vColor.y+1.);"
     "gl_FragColor = vec4((vColor.x+1.)/r2,(vColor.y+1.)/r2,uniID,1.);}\n"
@@ -58,37 +58,37 @@ void cleateshader(){
 
 float *points;
 
-void prepare_rectangle(){
+void prepare_dodecagon(){
 
-  points = (float *)calloc(5*3,sizeof(float));
+  points = (float *)calloc(13*3,sizeof(float));
 
   int i;
-  for(i=0;i<5;i++){
-    points[3*i] = cos(360./4.*pi/180.*i);
-    points[3*i+1] = sin(360./4.*pi/180.*i);
+  for(i=0;i<13;i++){
+    points[3*i] = cos(360./12.*pi/180.*i);
+    points[3*i+1] = sin(360./12.*pi/180.*i);
     points[3*i+2] = 0.;
   }
 
-  for(i=0;i<5;i++){
+  for(i=0;i<12;i++){
     printf("points %d:%lf %lf %lf\n",i,points[3*i],points[3*i+1],points[3*i+2]);
   }
 
 }
 
-void draw_rectangle(){
+void draw_dodecagon(){
 
   glEnableClientState(GL_VERTEX_ARRAY); 
   glVertexPointer(3, GL_FLOAT, 0, points); /* 3 float values for each vertex, offset 0*/
-  glDrawArrays(GL_TRIANGLE_FAN,0,5);	     /* 5 vertices */
+  glDrawArrays(GL_TRIANGLE_FAN,0,13);	     /* 12 vertices */
   glDisableClientState(GL_VERTEX_ARRAY); 
 }
 
-void rotate_rectangle(){
+void rotate_dodecagon(){
 
   int i;
-  for(i=0;i<5;i++){
-    points[3*i] = cos(360./4.*pi/180.*i+t);
-    points[3*i+1] = sin(360./4.*pi/180.*i+t);
+  for(i=0;i<13;i++){
+    points[3*i] = cos(360./12.*pi/180.*i+t);
+    points[3*i+1] = sin(360./12.*pi/180.*i+t);
     points[3*i+2] = 0.;
   }
   t += 1e-2;
@@ -104,11 +104,9 @@ int main(int argc, char **argv){
   /* glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2); */
   /* glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); */
 
-  glfwOpenWindow(500,500,0,0,0,0,0,0,GLFW_WINDOW);
+  glfwOpenWindow(0,0,0,0,0,0,0,0,GLFW_WINDOW);
 
-  glfwSetWindowPos(50,100);
-
-  glfwSetWindowTitle("rectangle");
+  glfwSetWindowTitle("donothing");
 
   cleateshader();
 
@@ -116,7 +114,7 @@ int main(int argc, char **argv){
 
   glClearColor(0.,0.,0.5,1.);	/* blue background */
 
-  prepare_rectangle();
+  prepare_dodecagon();
 
   while(glfwGetWindowParam(GLFW_OPENED)){
 
@@ -130,9 +128,9 @@ int main(int argc, char **argv){
     uniID = glGetUniformLocation(shader_program,"uniID");
     glUniform1f(uniID,univar);
 
-    draw_rectangle();
+    draw_dodecagon();
 
-    rotate_rectangle();
+    rotate_dodecagon();
 
     glfwSwapBuffers();
   }

@@ -106,7 +106,7 @@ int main(int argc, char **argv){
 
   glfwOpenWindow(0,0,0,0,0,0,0,0,GLFW_WINDOW);
 
-  glfwSetWindowTitle("Do Nothing");
+  glfwSetWindowTitle("dodecagon");
 
   cleateshader();
 

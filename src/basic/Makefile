@@ -12,7 +12,9 @@ CC = gcc
 OPT += -O3 -Wall 
 # OPT += -Wno-deprecated
 OBJS1 = donothing.o 
-OBJS2 = dodecagon.o
+OBJS2 = dodecagon.o 
+OBJS3 = rectangle.o
+OBJS4 = playground.o
 
 all: prog1 prog2
 #
@@ -22,6 +24,11 @@ prog1:
 prog2:
 	$(CC) $(OPT) $(PREDEF) -c dodecagon.c
 	$(CC) $(OBJS2) $(LIB) -o dodecagon
+	$(CC) $(OPT) $(PREDEF) -c rectangle.c
+	$(CC) $(OBJS3) $(LIB) -o rectangle
+	$(CC) $(OPT) $(PREDEF) -c playground.c
+	$(CC) $(OBJS4) $(LIB) -o playground
+
 
 clean:
 	rm -vf *.o

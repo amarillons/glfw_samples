@@ -108,7 +108,7 @@ int main(int argc, char **argv){
 
   glfwSetWindowPos(50,100);
 
-  glfwSetWindowTitle("rectangle");
+  glfwSetWindowTitle("playground");
 
   cleateshader();
 
