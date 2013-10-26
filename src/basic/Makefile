@@ -15,19 +15,23 @@ OBJS1 = donothing.o
 OBJS2 = dodecagon.o 
 OBJS3 = rectangle.o
 OBJS4 = playground.o
+OBJS5 = playground.o
 
-all: prog1 prog2
+all: new
 #
 prog1:
 	$(CC) $(OPT) $(PREDEF) -c nothing.c
 	$(CC) $(OBJS1) $(LIB) -o nothing
-prog2:
 	$(CC) $(OPT) $(PREDEF) -c dodecagon.c
 	$(CC) $(OBJS2) $(LIB) -o dodecagon
+prog2:
 	$(CC) $(OPT) $(PREDEF) -c rectangle.c
 	$(CC) $(OBJS3) $(LIB) -o rectangle
+new:
 	$(CC) $(OPT) $(PREDEF) -c playground.c
 	$(CC) $(OBJS4) $(LIB) -o playground
+	$(CC) $(OPT) $(PREDEF) -c triangle.c
+	$(CC) $(OBJS5) $(LIB) -o triangle
 
 
 clean:

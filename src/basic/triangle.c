@@ -89,8 +89,8 @@ void rotate_triangle(){
   int i;
   for(i=0;i<4;i++){
     points[3*i] = cos(360./3.*pi/180.*i+t);
-    points[3*i+1] = sin(360./3.*pi/180.*i+t)+sin(t);
-    points[3*i+2] = sin(t);
+    points[3*i+1] = sin(360./3.*pi/180.*i+t);
+    points[3*i+2] = 0.;
   }
   t += 1e-2;
 }
@@ -107,7 +107,7 @@ void create_VBO(){
     points[3*i] = cos(360./3.*pi/180.*i);
     points[3*i+1] = sin(360./3.*pi/180.*i);
     points[3*i+2] = 0.;
-    printf("points[%d]: %lf %lf %lf\n",i,points[3*i],points[3*i+1],points[3*i+2]);
+    printf("i:%d %lf %lf %lf\n",i,points[3*i],points[3*i+1],points[3*i+2]);
   }
 
   /* myVBO_id = 0; */
