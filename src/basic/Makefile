@@ -15,6 +15,7 @@ OBJS1 = donothing.o
 OBJS2 = dodecagon.o 
 OBJS3 = rectangle.o
 OBJS4 = playground.o
+OBJS6 = triangle_color.o
 OBJS5 = playground.o
 
 all: new
@@ -25,13 +26,15 @@ prog1:
 prog2:
 	$(CC) $(OPT) $(PREDEF) -c rectangle.c
 	$(CC) $(OBJS3) $(LIB) -o rectangle
-new:
 	$(CC) $(OPT) $(PREDEF) -c dodecagon.c
 	$(CC) $(OBJS2) $(LIB) -o dodecagon
-	$(CC) $(OPT) $(PREDEF) -c playground.c
-	$(CC) $(OBJS4) $(LIB) -o playground
+	$(CC) $(OPT) $(PREDEF) -c triangle_color.c
+	$(CC) $(OBJS6) $(LIB) -o triangle_color
 	$(CC) $(OPT) $(PREDEF) -c triangle.c
 	$(CC) $(OBJS5) $(LIB) -o triangle
+new:
+	$(CC) $(OPT) $(PREDEF) -c playground.c
+	$(CC) $(OBJS4) $(LIB) -o playground
 
 
 clean:

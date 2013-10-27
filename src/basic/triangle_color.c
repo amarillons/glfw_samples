@@ -93,8 +93,8 @@ void time_evolution_triangle(){
 
   int i;
   for(i=0;i<4;i++){
-    points[6*i] = cos(360./3.*pi/180.*i+t)+exp(-t*t)*sin(20.*t);
-    points[6*i+1] = sin(360./3.*pi/180.*i+t)+exp(-t*t)*sin(30.*t);
+    points[6*i] = cos(360./3.*pi/180.*i+t);
+    points[6*i+1] = sin(360./3.*pi/180.*i+t);
     points[6*i+2] = 0.;
     switch(i%3){
     case 1:

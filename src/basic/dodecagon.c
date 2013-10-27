@@ -128,6 +128,7 @@ int main(int argc, char **argv){
 
     /* this is called after glUseProgram() is called. */
     uniID = glGetUniformLocation(shader_program,"uniID");
+
     glUniform1f(uniID,univar);
 
     draw_dodecagon();
