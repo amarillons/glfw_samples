@@ -31,7 +31,7 @@ GLuint shader_program;
 static GLboolean printShaderInfoLog(GLuint shader, const char *str);
 static GLboolean printProgramInfoLog(GLuint program);
 
-void cleateshader(){
+void createshader(){
 
   GLuint vshader = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(vshader,1,&vertex_shader_source, 0); /* third argument is pointer to shader source */
@@ -159,7 +159,7 @@ int main(int argc, char **argv){
 
   glfwSetWindowTitle("playground");
 
-  cleateshader();
+  createshader();
 
   glfwSwapInterval(1);
 
