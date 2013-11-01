@@ -17,7 +17,9 @@ static const GLchar *vertex_shader_source=
     "attribute vec3 myatr;\n"
     "uniform float uniID;varying vec3 varyingnormal;uniform vec3 uniform2;\n"
     "void main()\n"
-    "{gl_FrontColor = gl_Color;vColor = position;   gl_Position = position; vColor = vec4(myatr,1.);}\n"
+    "{gl_FrontColor = gl_Color;vColor = position;   gl_Position = position; vColor = vec4(myatr,1.);"
+    "gl_Position.x += 1.0;"
+    "}\n"
   };
 
 static const GLchar *fragment_shader_source=
@@ -29,6 +31,7 @@ static const GLchar *fragment_shader_source=
     /* "gl_FragColor = vec4((vColor.x+1.)/r2,(vColor.y+1.)/r2,uniID,1.);}\n" */
     "gl_FragColor = gl_Color;\n"
     /* "gl_FragColor = v_mine;}\n" */
+    /* "gl_FragColor = vec4(1.,0.,0.,1.);" */
     "}\n"
   };
 
@@ -93,8 +96,8 @@ void time_evolution_triangle(){
 
   int i;
   for(i=0;i<4;i++){
-    points[6*i] = cos(360./3.*pi/180.*i+t)+exp(-t*t)*sin(20.*t);
-    points[6*i+1] = sin(360./3.*pi/180.*i+t)+exp(-t*t)*sin(30.*t);
+    points[6*i] = cos(360./3.*pi/180.*i+t);
+    points[6*i+1] = sin(360./3.*pi/180.*i+t);
     points[6*i+2] = 0.;
     switch(i%3){
     case 1:
