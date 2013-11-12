@@ -33,6 +33,8 @@ prog2:
 	$(CC) $(OPT) $(PREDEF) -c triangle.c
 	$(CC) $(OBJS5) $(LIB) -o triangle
 new:
+	$(CC) $(OPT) $(PREDEF) -c halfshadow.c
+	$(CC) halfshadow.o $(LIB) -o halfshadow
 	$(CC) $(OPT) $(PREDEF) -c playground.c
 	$(CC) $(OBJS4) $(LIB) -o playground
 

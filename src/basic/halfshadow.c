@@ -19,7 +19,7 @@ static const GLchar *vertex_shader_source=
     "varying float myvarying;\n"
     "void main()\n"
     "{gl_FrontColor = gl_Color;vColor = position;   gl_Position = position; vColor = vec4(myatr,1.);"
-    "myvarying = min(position.y+0.6,0.95);"
+    "myvarying = min(position.y+0.5,1.);"
     "gl_Position.x += 0.0;"
     "}\n"
   };
@@ -186,7 +186,7 @@ int main(int argc, char **argv){
 
   glfwSetWindowPos(50,100);
 
-  glfwSetWindowTitle("playground");
+  glfwSetWindowTitle("halfshadow triangle");
 
   cleateshader();
 
