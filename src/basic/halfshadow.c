@@ -104,17 +104,17 @@ void time_evolution_triangle(){
     points[6*i+1] = sin(360./3.*pi/180.*i+t);
     points[6*i+2] = 0.;
     switch(i%3){
-    case 1:
-      points[6*i+3] = 1;
+    case 1:			/* vertex 1/3 of a triangle. */
+      points[6*i+3] = 1;	/* to color vertex array */
       points[6*i+4] = 0;
       points[6*i+5] = 0;
       break;
-    case 2:
+    case 2:			/* vertex 2/3 of a triangle. */
       points[6*i+3] = 0;
       points[6*i+4] = 1;
       points[6*i+5] = 0;
       break;
-    default:
+    default:			/* vertex 3/3 of a triangle. */
       points[6*i+3] = 0;
       points[6*i+4] = 0;
       points[6*i+5] = 1;

@@ -16,10 +16,10 @@ static const GLchar *vertex_shader_source=
     "attribute vec4 position;attribute vec3 normal;attribute vec4 color;varying vec4 vColor;\n"
     "attribute vec3 myatr;\n"
     "uniform float uniID;varying vec3 varyingnormal;uniform vec3 uniform2;\n"
-    "varying float myvarying;\n"
+    "varying float myvarying;varying vec4 varyingposition;\n"
     "void main()\n"
-    "{gl_FrontColor = gl_Color;vColor = position;   gl_Position = position; vColor = vec4(myatr,1.);"
-    "myvarying = min(position.y+0.6,0.95);"
+    "{gl_FrontColor = gl_Color;vColor = position;   gl_Position = position;"
+    "myvarying = min(position.y+0.6,0.95); varyingposition = gl_Position;"
     "gl_Position.x += 0.0;"
     "}\n"
   };
@@ -27,13 +27,18 @@ static const GLchar *vertex_shader_source=
 static const GLchar *fragment_shader_source=
   {
     "uniform float uniID;varying vec4 vColor;uniform vec3 uniform2;\n"
-    "varying float myvarying;\n"
+    "varying float myvarying;varying vec4 varyingposition;\n"
     "void main()\n"
     "{ float r2 = (vColor.x+1.)*(vColor.x+1.)+(vColor.y+1.)*(vColor.y+1.);"
     "vec4 v_mine = vec4(uniform2,1.);\n"
     /* "gl_FragColor = vec4((vColor.x+1.)/r2,(vColor.y+1.)/r2,uniID,1.);}\n" */
     /* "myvarying += 0.1;"     */
-    "gl_FragColor = vec4(gl_Color.x*myvarying,gl_Color.y*myvarying,gl_Color.z*myvarying,1.);\n"
+    /* "gl_FragColor = vec4(gl_Color.x*myvarying,gl_Color.y*myvarying,gl_Color.z*myvarying,1.);\n" */
+    /* "gl_FragColor = mix(gl_Color,vec4(1.,1.,1.,1.),uniform2.y-0.5);" */
+    "gl_FragColor = gl_Color.grba;"
+    /* "gl_FragColor = vec4(0.,0.3,0.,1.);" */
+    "if((varyingposition.x-uniform2.y)*(varyingposition.x-uniform2.y)+(varyingposition.y-uniform2.y)*(varyingposition.y-uniform2.y)>0.1){gl_FragColor = gl_Color;}"
+    /* "if(varyingposition.x<-0.1){gl_FragColor = vec4(0.,0.5,0.5,1.);}" */
     /* "gl_FragColor = v_mine;}\n" */
     /* "gl_FragColor = vec4(1.,0.,0.,1.);" */
     "}\n"
@@ -210,7 +215,7 @@ int main(int argc, char **argv){
     uniID = glGetUniformLocation(shader_program,"uniID");
     glUniform1f(uniID,univar);
 
-    glUniform3f(glGetUniformLocation(shader_program,"uniform2"),sin(3.*t),sin(t),cos(t));
+    glUniform3f(glGetUniformLocation(shader_program,"uniform2"),sin(20.*t),0.3*sin(t),cos(t));
     int index = glGetAttribLocation(shader_program,"myatr");
 
     glVertexAttrib3f(index,1.,0.,0.);
