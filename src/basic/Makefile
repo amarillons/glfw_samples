@@ -32,9 +32,11 @@ prog2:
 	$(CC) $(OBJS6) $(LIB) -o triangle_color
 	$(CC) $(OPT) $(PREDEF) -c triangle.c
 	$(CC) $(OBJS5) $(LIB) -o triangle
-new:
 	$(CC) $(OPT) $(PREDEF) -c halfshadow.c
 	$(CC) halfshadow.o $(LIB) -o halfshadow
+	$(CC) $(OPT) $(PREDEF) -c spotlight.c
+	$(CC) spotlight.o $(LIB) -o spotlight
+new:
 	$(CC) $(OPT) $(PREDEF) -c playground.c
 	$(CC) $(OBJS4) $(LIB) -o playground
 

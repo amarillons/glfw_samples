@@ -194,6 +194,7 @@ void draw_VBO(){
 
   glEnableClientState(GL_VERTEX_ARRAY); 
   glEnableClientState(GL_COLOR_ARRAY); 
+
   glVertexPointer(3, GL_FLOAT, 6*sizeof(float), points); /* 3 float values for each vertex, offset 0*/
   glColorPointer(3, GL_FLOAT, 6*sizeof(float), &points[3]); /* 3 float values for each vertex, offset 0*/
 
