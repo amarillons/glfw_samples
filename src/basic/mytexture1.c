@@ -11,42 +11,32 @@ float t;
 float univar;
 GLuint uniID;
 
-int vertical = 10;
-int horizontal = 20;
-
 static const GLchar *vertex_shader_source= 
   {
     "attribute vec4 position;attribute vec3 normal;attribute vec4 color;varying vec4 vColor;\n"
     "attribute vec3 myatr;\n"
     "uniform float uniID;varying vec3 varyingnormal;uniform vec3 uniform2;\n"
-    "varying float myvarying;varying vec4 varyingposition;\n"
+    "varying float myvarying;\n"
     "void main()\n"
-    "{gl_FrontColor = gl_Color;vColor = position;   gl_Position = position;"
-    "myvarying = min(position.y+0.6,0.95); varyingposition = gl_Position;"
+    "{gl_FrontColor = gl_Color;vColor = position;   gl_Position = position; vColor = vec4(myatr,1.);"
+    "myvarying = min(position.y+0.5,1.);"
     "gl_Position.x += 0.0;"
-    "gl_PointSize = 2.;;"
     "}\n"
   };
 
 static const GLchar *fragment_shader_source=
   {
     "uniform float uniID;varying vec4 vColor;uniform vec3 uniform2;\n"
-    "varying float myvarying;varying vec4 varyingposition;\n"
+    "varying float myvarying;\n"
     "void main()\n"
     "{ float r2 = (vColor.x+1.)*(vColor.x+1.)+(vColor.y+1.)*(vColor.y+1.);"
     "vec4 v_mine = vec4(uniform2,1.);\n"
     /* "gl_FragColor = vec4((vColor.x+1.)/r2,(vColor.y+1.)/r2,uniID,1.);}\n" */
     /* "myvarying += 0.1;"     */
-    /* "gl_FragColor = vec4(gl_Color.x*myvarying,gl_Color.y*myvarying,gl_Color.z*myvarying,1.);\n" */
-    /* "gl_FragColor = mix(gl_Color,vec4(1.,1.,1.,1.),uniform2.y-0.5);" */
-    "gl_FragColor = gl_Color.rgba;"
-    /* "gl_FragColor = vec4(0.,0.3,0.,1.);" */
-    "if((varyingposition.x-uniform2.x)*(varyingposition.x-uniform2.x)+(varyingposition.y-uniform2.y)*(varyingposition.y-uniform2.y)>0.1){gl_FragColor = vec4(1.-gl_Color.r,1.-gl_Color.g,1.-gl_Color.b,gl_Color.a);}"
-    /* "if(gl_Color.y==1.){gl_FragColor = vec4(0.,1.,0.,1.);}else{gl_FragColor = vec4(1.,0.,0.,1.);}" */
-    /* "if(varyingposition.x<-0.1){gl_FragColor = vec4(0.,0.5,0.5,1.);}" */
+    "gl_FragColor = vec4(gl_Color.x*myvarying,gl_Color.y*myvarying,gl_Color.z*myvarying,1.);\n"
+    "if(step(uniform2.x,fract(gl_Color.x*20.))!=1. || step(uniform2.x,fract(gl_Color.y*20.))!=1.) gl_FragColor = gl_Color.grba;"
     /* "gl_FragColor = v_mine;}\n" */
     /* "gl_FragColor = vec4(1.,0.,0.,1.);" */
-    
     "}\n"
   };
 
@@ -104,25 +94,6 @@ void draw_rectangle(){
   glVertexPointer(3, GL_FLOAT, 0, points); /* 3 float values for each vertex, offset 0*/
   glDrawArrays(GL_TRIANGLE_FAN,0,5);	     /* 5 vertices */
   glDisableClientState(GL_VERTEX_ARRAY); 
-  /* glDisable(GL_VERTEX_PROGRAM_POINT_SIZE); */
-}
-
-
-void time_evolution_points(){
-
-  int i,j;
-  for(i=0;i<vertical;i++){
-    for(j=0;j<horizontal;j++){
-      points[6*(i*horizontal+j)] += 0.;
-      points[6*(i*horizontal+j)+1] += 0.;
-      points[6*(i*horizontal+j)+2] = 0.;
-      points[6*(i*horizontal+j)+3] = sin(t);
-      points[6*(i*horizontal+j)+4] = cos(t);
-      points[6*(i*horizontal+j)+5] = cos(t);
-    }
-  }
-
-  t += 0.01;
 }
 
 
@@ -134,17 +105,17 @@ void time_evolution_triangle(){
     points[6*i+1] = sin(360./3.*pi/180.*i+t);
     points[6*i+2] = 0.;
     switch(i%3){
-    case 1:
-      points[6*i+3] = 1;
+    case 1:			/* vertex 1/3 of a triangle. */
+      points[6*i+3] = 1;	/* to color vertex array */
       points[6*i+4] = 0;
       points[6*i+5] = 0;
       break;
-    case 2:
+    case 2:			/* vertex 2/3 of a triangle. */
       points[6*i+3] = 0;
       points[6*i+4] = 1;
       points[6*i+5] = 0;
       break;
-    default:
+    default:			/* vertex 3/3 of a triangle. */
       points[6*i+3] = 0;
       points[6*i+4] = 0;
       points[6*i+5] = 1;
@@ -171,19 +142,17 @@ GLuint myVBO_id;
 
 void create_VBO(){
 
-  points = (float *)calloc(vertical*horizontal*6+1,sizeof(float));
+  points = (float *)calloc(4*6+1,sizeof(float));
 
-  int i,j;
-  for(i=0;i<vertical;i++){
-    for(j=0;j<horizontal;j++){
-      points[6*(i*horizontal+j)] = (2.*(double)j/(double)horizontal-1)*0.9;
-      points[6*(i*horizontal+j)+1] = (2.*(double)i/(double)vertical-1)*0.9;
-      points[6*(i*horizontal+j)+2] = 0.;
-      points[6*(i*horizontal+j)+3] = 1.;
-      points[6*(i*horizontal+j)+4] = 0.;
-      points[6*(i*horizontal+j)+5] = 0.;
-    }
-    /* printf("points[%d]: %lf %lf %lf\n",i,points[6*i],points[6*i+1],points[6*i+2]); */
+  int i;
+  for(i=0;i<4;i++){
+    points[6*i] = cos(360./3.*pi/180.*i);
+    points[6*i+1] = sin(360./3.*pi/180.*i);
+    points[6*i+2] = 0.;
+    points[6*i+3] = 0.;
+    points[6*i+4] = 1.;
+    points[6*i+5] = 0.;
+    printf("points[%d]: %lf %lf %lf\n",i,points[6*i],points[6*i+1],points[6*i+2]);
   }
 
 }
@@ -191,15 +160,13 @@ void create_VBO(){
 void draw_VBO(){
 
   glBindBuffer(GL_ARRAY_BUFFER, myVBO_id);  //バインド
-  glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 
   glEnableClientState(GL_VERTEX_ARRAY); 
   glEnableClientState(GL_COLOR_ARRAY); 
-
   glVertexPointer(3, GL_FLOAT, 6*sizeof(float), points); /* 3 float values for each vertex, offset 0*/
   glColorPointer(3, GL_FLOAT, 6*sizeof(float), &points[3]); /* 3 float values for each vertex, offset 0*/
 
-  glDrawArrays(GL_POINTS,0,vertical*horizontal);	
+  glDrawArrays(GL_TRIANGLE_FAN,0,4);	     /* 5 vertices */
   /* glDrawElements(GL_TRIANGLES,4*3,GL_UNSIGNED_INT,&myVBO_id); */
   glDisableClientState(GL_COLOR_ARRAY); 
   glDisableClientState(GL_VERTEX_ARRAY); 
@@ -220,7 +187,7 @@ int main(int argc, char **argv){
 
   glfwSetWindowPos(50,100);
 
-  glfwSetWindowTitle("playground");
+  glfwSetWindowTitle("halfshadow triangle");
 
   cleateshader();
 
@@ -244,14 +211,12 @@ int main(int argc, char **argv){
     uniID = glGetUniformLocation(shader_program,"uniID");
     glUniform1f(uniID,univar);
 
-    glUniform3f(glGetUniformLocation(shader_program,"uniform2"),0.7*sin(5.*t),0.7*cos(5.*t),cos(t));
+    glUniform3f(glGetUniformLocation(shader_program,"uniform2"),sin(3.*t),sin(t),cos(t));
     int index = glGetAttribLocation(shader_program,"myatr");
 
     glVertexAttrib3f(index,1.,0.,0.);
 
-    /* time_evolution_triangle(); */
-
-    time_evolution_points();
+    time_evolution_triangle();
 
     draw_VBO();
 
