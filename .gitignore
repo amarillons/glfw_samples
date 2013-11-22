@@ -2,6 +2,9 @@
 *.o
 *.ko
 
+# Binary files
+*.out
+
 # Libraries
 *.lib
 *.a

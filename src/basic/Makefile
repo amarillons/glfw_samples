@@ -18,34 +18,34 @@ OBJS4 = playground.o
 OBJS6 = triangle_color.o
 OBJS5 = playground.o
 
-all: new
+all: new prog1 prog2
 #
 prog1:
 	$(CC) $(OPT) $(PREDEF) -c nothing.c
-	$(CC) $(OBJS1) $(LIB) -o nothing
+	$(CC) $(OBJS1) $(LIB) -o nothing.out
 prog2:
 	$(CC) $(OPT) $(PREDEF) -c rectangle.c
-	$(CC) $(OBJS3) $(LIB) -o rectangle
+	$(CC) $(OBJS3) $(LIB) -o rectangle.out
 	$(CC) $(OPT) $(PREDEF) -c dodecagon.c
-	$(CC) $(OBJS2) $(LIB) -o dodecagon
+	$(CC) $(OBJS2) $(LIB) -o dodecagon.out
 	$(CC) $(OPT) $(PREDEF) -c triangle_color.c
-	$(CC) $(OBJS6) $(LIB) -o triangle_color
+	$(CC) $(OBJS6) $(LIB) -o triangle_color.out
 	$(CC) $(OPT) $(PREDEF) -c triangle.c
-	$(CC) $(OBJS5) $(LIB) -o triangle
+	$(CC) $(OBJS5) $(LIB) -o triangle.out
 	$(CC) $(OPT) $(PREDEF) -c halfshadow.c
-	$(CC) halfshadow.o $(LIB) -o halfshadow
+	$(CC) halfshadow.o $(LIB) -o halfshadow.out
 new:
 	$(CC) $(OPT) $(PREDEF) -c mytexture1.c
-	$(CC) mytexture1.o $(LIB) -o mytexture1
+	$(CC) mytexture1.o $(LIB) -o mytexture1.out
 	$(CC) $(OPT) $(PREDEF) -c spotlight.c
-	$(CC) spotlight.o $(LIB) -o spotlight
+	$(CC) spotlight.o $(LIB) -o spotlight.out
 	$(CC) $(OPT) $(PREDEF) -c simplecircle.c
-	$(CC) simplecircle.o $(LIB) -o simplecircle
+	$(CC) simplecircle.o $(LIB) -o simplecircle.out
 
 	$(CC) $(OPT) $(PREDEF) -c simplecube.c
-	$(CC) simplecube.o $(LIB) -o simplecube
+	$(CC) simplecube.o $(LIB) -o simplecube.out
 	$(CC) $(OPT) $(PREDEF) -c playground.c
-	$(CC) $(OBJS4) $(LIB) -o playground
+	$(CC) $(OBJS4) $(LIB) -o playground.out
 
 
 clean:
