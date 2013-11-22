@@ -34,11 +34,11 @@ prog2:
 	$(CC) $(OBJS5) $(LIB) -o triangle
 	$(CC) $(OPT) $(PREDEF) -c halfshadow.c
 	$(CC) halfshadow.o $(LIB) -o halfshadow
-	$(CC) $(OPT) $(PREDEF) -c spotlight.c
-	$(CC) spotlight.o $(LIB) -o spotlight
+new:
 	$(CC) $(OPT) $(PREDEF) -c mytexture1.c
 	$(CC) mytexture1.o $(LIB) -o mytexture1
-new:
+	$(CC) $(OPT) $(PREDEF) -c spotlight.c
+	$(CC) spotlight.o $(LIB) -o spotlight
 	$(CC) $(OPT) $(PREDEF) -c simplecircle.c
 	$(CC) simplecircle.o $(LIB) -o simplecircle
 
