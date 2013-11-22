@@ -5,6 +5,12 @@ OpenGL glfw library code samples, miscellaneous
 ## ScreenShots
 
 ### simplecircle.c
+<img src="./figures/spotlight.png" Titie="spotlight.c" width="500px">
+
+### simplecircle.c
+<img src="./figures/mytexture1.png" Titie="mytexture1.c" width="500px">
+
+### simplecircle.c
 <img src="./figures/simplecircle.png" Titie="halfshadow.c" width="500px">
 
 
