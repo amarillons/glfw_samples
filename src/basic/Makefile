@@ -41,6 +41,9 @@ prog2:
 new:
 	$(CC) $(OPT) $(PREDEF) -c simplecircle.c
 	$(CC) simplecircle.o $(LIB) -o simplecircle
+
+	$(CC) $(OPT) $(PREDEF) -c simplecube.c
+	$(CC) simplecube.o $(LIB) -o simplecube
 	$(CC) $(OPT) $(PREDEF) -c playground.c
 	$(CC) $(OBJS4) $(LIB) -o playground
 
