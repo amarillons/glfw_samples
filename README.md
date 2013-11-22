@@ -4,10 +4,10 @@ OpenGL glfw library code samples, miscellaneous
 
 ## ScreenShots
 
-### simplecircle.c
+### spotlight.c
 <img src="./figures/spotlight.png" Titie="spotlight.c" width="500px">
 
-### simplecircle.c
+### mytexture1.c
 <img src="./figures/mytexture1.png" Titie="mytexture1.c" width="500px">
 
 ### simplecircle.c
