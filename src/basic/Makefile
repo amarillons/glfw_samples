@@ -18,7 +18,7 @@ OBJS4 = playground.o
 OBJS6 = triangle_color.o
 OBJS5 = playground.o
 
-all: new prog1 prog2
+all: new
 #
 prog1:
 	$(CC) $(OPT) $(PREDEF) -c nothing.c
@@ -34,14 +34,13 @@ prog2:
 	$(CC) $(OBJS5) $(LIB) -o triangle.out
 	$(CC) $(OPT) $(PREDEF) -c halfshadow.c
 	$(CC) halfshadow.o $(LIB) -o halfshadow.out
-new:
 	$(CC) $(OPT) $(PREDEF) -c mytexture1.c
 	$(CC) mytexture1.o $(LIB) -o mytexture1.out
 	$(CC) $(OPT) $(PREDEF) -c spotlight.c
 	$(CC) spotlight.o $(LIB) -o spotlight.out
 	$(CC) $(OPT) $(PREDEF) -c simplecircle.c
 	$(CC) simplecircle.o $(LIB) -o simplecircle.out
-
+new:
 	$(CC) $(OPT) $(PREDEF) -c simplecube.c
 	$(CC) simplecube.o $(LIB) -o simplecube.out
 	$(CC) $(OPT) $(PREDEF) -c playground.c
